@@ -1,4 +1,4 @@
 module.exports = {
-	hi: 'Hello again',
-	event: 'Uppsala JS'
+    hi: 'Hello again',
+    event: 'Uppsala JS'
 }
