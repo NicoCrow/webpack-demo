@@ -1,10 +1,9 @@
 var path = require('path');
 var webpack = require("webpack");
 
-var DEVELOPMENT = process.env.NODE_ENV.split(' ').join('') == 'development';
-var PRODUCTION  = process.env.NODE_ENV.split(' ').join('') == 'production';
+var DEVELOPMENT = process.env.NODE_ENV.trim() == 'development';
+var PRODUCTION  = process.env.NODE_ENV.trim() == 'production';
 
-// console.log('\n\n\n', process.env.NODE_ENV, '\t\t\t', 'dev: ',  DEVELOPMENT, '\t\t\t', 'prod: ', PRODUCTION, '\n\n\n');
 
 var entry = PRODUCTION
     ? ['./src/index.js']
@@ -18,13 +17,33 @@ var plugins = PRODUCTION
     ?   []
     :   [new webpack.HotModuleReplacementPlugin()];
 
+/*console.log(
+    '\n\n\n',
+    process.env.NODE_ENV,
+    '\t\t\t',
+    'dev: ',  DEVELOPMENT,
+    '\t\t\t',
+    'prod: ', PRODUCTION,
+    '\t\t\t',
+    "entry: ",
+    entry,
+    '\t\t\t',
+    'plugins: ',
+    plugins,
+    '\n\n\n');*/
+
 module.exports = {
+    devtool: 'source-map',
     entry: entry,
     plugins: plugins,
     module: {
         loaders: [{
             test: /\.js$/,
             loaders: ['babel-loader'],
+            exclude: '/node_modules/'
+        }, {
+            test: /\.(png|jpg|gif)$/,
+            loaders: ['url-loader?limit=10000&name=images/[hash:12].[ext]'],
             exclude: '/node_modules/'
         }]
     },
