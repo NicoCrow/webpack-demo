@@ -34,16 +34,15 @@ plugins.push(
     })
 );
 
+// console.log(plugins, '\n\n\n\n\n\n');
+
 const cssIdentifier = PRODUCTION ? '[hash:base64:10]' : '[path][name]---[local]';
+
 
 const cssLoader = PRODUCTION
     ?   ExtractTextPlugin.extract({
             loader: 'css-loader?localIdentName=' + cssIdentifier
         })
-        /*ExtractTextPlugin.extract({
-            use: 'css-loader',
-            filename: cssIdentifier
-        })﻿*/
     :   ['style-loader', 'css-loader?localIdentName=' + cssIdentifier];
 
 module.exports = {
