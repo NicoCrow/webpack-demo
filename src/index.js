@@ -1,5 +1,8 @@
 // import _ from 'lodash';
 var style = require('./style/globalStyle.css');
+
+import $ from 'jquery';
+
 // var messages = require('./messages');
 
 // import Button from './button';
@@ -53,6 +56,8 @@ document.getElementById('loadPage2').addEventListener('click', () => {
             document.getElementById('content').innerHTML = pageModule.default;
         });
 });
+
+$('#app').css('background-color', 'yellow');
 
 
 if (DEVELOPMENT) {

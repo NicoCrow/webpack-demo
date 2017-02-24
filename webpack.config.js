@@ -50,6 +50,9 @@ const cssLoader = PRODUCTION
     :   ['style-loader', 'css-loader?localIdentName=' + cssIdentifier];
 
 module.exports = {
+    externals: {
+        'jquery': 'jQuery'  // jquery is external and available at the global variable jQyery
+    },
     devtool: 'source-map',
     entry: entry,
     plugins: plugins,
