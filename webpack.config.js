@@ -1,8 +1,10 @@
 var path = require('path');
 var webpack = require("webpack");
 
-var DEVELOPMENT = process.env.NODE_ENV === 'development';
-var PRODUCTION  = process.env.NODE_ENV === 'production';
+var DEVELOPMENT = process.env.NODE_ENV.split(' ').join('') == 'development';
+var PRODUCTION  = process.env.NODE_ENV.split(' ').join('') == 'production';
+
+// console.log('\n\n\n', process.env.NODE_ENV, '\t\t\t', 'dev: ',  DEVELOPMENT, '\t\t\t', 'prod: ', PRODUCTION, '\n\n\n');
 
 var entry = PRODUCTION
     ? ['./src/index.js']
