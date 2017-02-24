@@ -1,6 +1,7 @@
 var path = require('path');
 var webpack = require("webpack");
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var HTMLWebpackPlugin = require('html-webpack-plugin');
 
 var DEVELOPMENT = process.env.NODE_ENV.trim() == 'development';
 var PRODUCTION  = process.env.NODE_ENV.trim() == 'production';
@@ -23,7 +24,10 @@ var plugins = PRODUCTION
                     warnings: true
                 }
             }*/),
-            new ExtractTextPlugin('style-[contenthash:10].css')
+            new ExtractTextPlugin('style-[contenthash:10].css'),
+            new HTMLWebpackPlugin({
+                template: 'index-template.html'
+            })
         ]
     :   [new webpack.HotModuleReplacementPlugin()];
 
@@ -66,8 +70,8 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/dist/',
-        filename: 'bundle.js'
+        publicPath: PRODUCTION ? '/' : '/dist/',
+        filename: PRODUCTION ? 'bundle.[hash:12].min.js' : 'bundle.js'
     }
     // devtool: "source-map",
 };
