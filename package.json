@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf dist && NODE_ENV=production webpack",
-    "dev": "NODE_ENV=development node dev-server.js"
+    "build": "rimraf dist && set NODE_ENV=production && webpack",
+    "dev": "set NODE_ENV=development && node dev-server.js"
   },
   "keywords": [],
   "author": "",
