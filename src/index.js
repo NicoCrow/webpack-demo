@@ -1,4 +1,5 @@
 // import _ from 'lodash';
+var style = require('./style/globalStyle.css');
 var messages = require('./messages');
 
 // import Button from './button';
@@ -6,16 +7,22 @@ var messages = require('./messages');
 // import Uppsala from './uppsalajs';
 
 // var newMessage = () => (`
-// 	<p>
-// 		${messages.hi} ${messages.event}
-// 		${User}
-// 		${Uppsala}
-// 	</p>
+//  <p>
+//     ${messages.hi} ${messages.event}
+//     ${User}
+//     ${Uppsala}
+//  </p>
 // `);
 
-import {multiply} from './mathStuff';
+import { multiply } from './mathStuff';
 
-const newMessage = () => (multiply(3,3));
+// const newMessage = () => (multiply(3,3));
+const newMessage = () => (`
+    <div class="${style.box}">
+        DEV: ${DEVELOPMENT.toString()}<br>
+        PROD: ${PRODUCTION.toString()}<br>
+    </div>
+`);
 
 // var newMessage = () => (Button.button);
 
@@ -25,6 +32,8 @@ app.innerHTML = newMessage();
 
 // Button.attachEl();
 
-if (module.hot) {
-    module.hot.accept();
+if (DEVELOPMENT) {
+    if (module.hot) {
+        module.hot.accept();
+    }
 }

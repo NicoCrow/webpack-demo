@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require("webpack");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var DEVELOPMENT = process.env.NODE_ENV.trim() == 'development';
 var PRODUCTION  = process.env.NODE_ENV.trim() == 'production';
@@ -15,30 +16,35 @@ var entry = PRODUCTION
 
 var plugins = PRODUCTION
     ?   [
-            new webpack.optimize.UglifyJsPlugin({
+            new webpack.optimize.UglifyJsPlugin(/*{
                 comments: true,
                 mangle: false,
                 compress: {
                     warnings: true
                 }
-            })
+            }*/),
+            new ExtractTextPlugin('style-[contenthash:10].css')
         ]
     :   [new webpack.HotModuleReplacementPlugin()];
 
-/*console.log(
-    '\n\n\n',
-    process.env.NODE_ENV,
-    '\t\t\t',
-    'dev: ',  DEVELOPMENT,
-    '\t\t\t',
-    'prod: ', PRODUCTION,
-    '\t\t\t',
-    "entry: ",
-    entry,
-    '\t\t\t',
-    'plugins: ',
-    plugins,
-    '\n\n\n');*/
+plugins.push(
+    new webpack.DefinePlugin({
+        DEVELOPMENT: JSON.stringify(DEVELOPMENT),
+        PRODUCTION: JSON.stringify(PRODUCTION)
+    })
+);
+
+const cssIdentifier = PRODUCTION ? '[hash:base64:10]' : '[path][name]---[local]';
+
+const cssLoader = PRODUCTION
+    ?   ExtractTextPlugin.extract({
+            loader: 'css-loader?localIdentName=' + cssIdentifier
+        })
+        /*ExtractTextPlugin.extract({
+            use: 'css-loader',
+            filename: cssIdentifier
+        })﻿*/
+    :   ['style-loader', 'css-loader?localIdentName=' + cssIdentifier];
 
 module.exports = {
     devtool: 'source-map',
@@ -52,6 +58,10 @@ module.exports = {
         }, {
             test: /\.(png|jpg|gif)$/,
             loaders: ['url-loader?limit=10000&name=images/[hash:12].[ext]'],
+            exclude: '/node_modules/'
+        }, {
+            test: /\.css$/,
+            loaders: cssLoader,
             exclude: '/node_modules/'
         }]
     },
