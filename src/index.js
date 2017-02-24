@@ -1,17 +1,21 @@
 // import _ from 'lodash';
 var messages = require('./messages');
 
-import Button from './button';
-import User from './image';
-import Uppsala from './uppsalajs';
+// import Button from './button';
+// import User from './image';
+// import Uppsala from './uppsalajs';
 
-var newMessage = () => (`
-	<p>
-		${messages.hi} ${messages.event}
-		${User}
-		${Uppsala}
-	</p>
-`);
+// var newMessage = () => (`
+// 	<p>
+// 		${messages.hi} ${messages.event}
+// 		${User}
+// 		${Uppsala}
+// 	</p>
+// `);
+
+import {multiply} from './mathStuff';
+
+const newMessage = () => (multiply(3,3));
 
 // var newMessage = () => (Button.button);
 
